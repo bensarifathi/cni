@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package ipam;
+option go_package="./v1/pb";
+
+message addRequest {
+    string subnet = 1;
+    string gateway = 2;
+    string container_id = 3;
+}
+
+message addResponse {
+    string pod_ip = 1;
+    string gateway = 2;
+    int32 net_mask = 3;
+}
+
+message delRequest {
+    string container_id = 1;
+}
+
+message delResponse {}
+
+service ipam {
+    rpc Add (addRequest) returns (addResponse);
+    rpc Del (delRequest) returns (delResponse);
+}
