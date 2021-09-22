@@ -67,7 +67,8 @@ func cmdAdd(args *skel.CmdArgs) error {
 	containerIface := &current.Interface{}
 	podIP := fmt.Sprintf("%s/%d", addResp.GetPodIp(), addResp.GetNetMask())
 	var handler = func(hostNS ns.NetNS) error {
-		lname := "namla-" + args.ContainerID[:5]
+		// Warning the interface name length should not exceed 15
+		lname := "namla-" + args.ContainerID[:9]
 		hostVeth, containerVeth, err := ip.SetupVethWithName(args.IfName, lname, 1500, "", hostNS)
 		if err != nil {
 			return err
